@@ -147,6 +147,8 @@ def generate_simple_sets(model_run):
     # `timesteps` set is built from the results of timeseries_data processing
     sets.timesteps = list(model_run.timesteps.astype(str))
     model_run.del_key('timesteps')
+    sets.expansionsteps = list(model_run.expansionsteps.astype(str))
+    model_run.del_key('expansionsteps')
 
     # `techlists` are strings with comma-separated techs used for grouping in
     # some model-wide constraints

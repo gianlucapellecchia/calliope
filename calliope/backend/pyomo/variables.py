@@ -40,7 +40,7 @@ def initialize_decision_variables(backend_model):
     # Variables which are always assigned
     ##
     if backend_model.mode != 'operate':
-        backend_model.energy_cap = po.Var(backend_model.loc_techs, within=po.NonNegativeReals)
+        backend_model.energy_cap = po.Var(backend_model.loc_techs, backend_model.expansionsteps, within=po.NonNegativeReals)
     backend_model.carrier_prod = po.Var(backend_model.loc_tech_carriers_prod, backend_model.timesteps, within=po.NonNegativeReals)
     backend_model.carrier_con = po.Var(backend_model.loc_tech_carriers_con, backend_model.timesteps, within=po.NegativeReals)
     backend_model.cost = po.Var(backend_model.costs, backend_model.loc_techs_cost, within=po.Reals)
@@ -50,11 +50,11 @@ def initialize_decision_variables(backend_model):
     ##
 
     if 'loc_techs_area' in model_data_dict['sets'] and backend_model.mode != 'operate':
-        backend_model.resource_area = po.Var(backend_model.loc_techs_area, within=po.NonNegativeReals)
+        backend_model.resource_area = po.Var(backend_model.loc_techs_area, backend_model.expansionsteps, within=po.NonNegativeReals)
 
     if 'loc_techs_store' in model_data_dict['sets']:
         if backend_model.mode != 'operate':
-            backend_model.storage_cap = po.Var(backend_model.loc_techs_store, within=po.NonNegativeReals)
+            backend_model.storage_cap = po.Var(backend_model.loc_techs_store, backend_model.expansionsteps, within=po.NonNegativeReals)
         if hasattr(backend_model, 'clusters') and hasattr(backend_model, 'datesteps'):
             backend_model.storage_inter_cluster = po.Var(backend_model.loc_techs_store, backend_model.datesteps, within=po.NonNegativeReals)
             backend_model.storage_intra_cluster_max = po.Var(backend_model.loc_techs_store, backend_model.clusters, within=po.Reals)
@@ -67,7 +67,7 @@ def initialize_decision_variables(backend_model):
     if 'loc_techs_supply_plus' in model_data_dict['sets']:
         backend_model.resource_con = po.Var(backend_model.loc_techs_supply_plus, backend_model.timesteps, within=po.NonNegativeReals)
         if backend_model.mode != 'operate':
-            backend_model.resource_cap = po.Var(backend_model.loc_techs_supply_plus, within=po.NonNegativeReals)
+            backend_model.resource_cap = po.Var(backend_model.loc_techs_supply_plus, backend_model.expansionsteps, within=po.NonNegativeReals)
 
     if 'loc_techs_export' in model_data_dict['sets']:
         backend_model.carrier_export = po.Var(backend_model.loc_tech_carriers_export, backend_model.timesteps, within=po.NonNegativeReals)
@@ -83,7 +83,7 @@ def initialize_decision_variables(backend_model):
 
     if 'loc_techs_milp' in model_data_dict['sets']:
         if backend_model.mode != 'operate':
-            backend_model.units = po.Var(backend_model.loc_techs_milp, within=po.NonNegativeIntegers)
+            backend_model.units = po.Var(backend_model.loc_techs_milp, backend_model.expansionsteps, within=po.NonNegativeIntegers)
         backend_model.operating_units = po.Var(backend_model.loc_techs_milp, backend_model.timesteps, within=po.NonNegativeIntegers)
         # For any milp tech, we need to update energy_cap, as energy_cap_max and energy_cap_equals
         # are replaced by energy_cap_per_unit

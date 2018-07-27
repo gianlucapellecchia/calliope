@@ -371,17 +371,23 @@ def process_timeseries_data(config_model, model_run):
         location_config = model_run.locations.as_dict_flat()
         model_config = config_model.model.as_dict_flat()
 
-        get_filenames = lambda config: set([
-            v.split('=')[1].rsplit(':', 1)[0]
-            for v in config.values() if 'file=' in str(v)
-        ])
-        constraint_filenames = get_filenames(location_config)
-        cluster_filenames = get_filenames(model_config)
-
+        def _get_filenames(config, ignore=[], include=[]):
+            return set([
+                v.split('=')[1].rsplit(':', 1)[0]
+                for k, v in config.items() if 'file=' in str(v) and
+                ((include and any(i in k for i in include)) or
+                 (ignore and not any(i in k for i in ignore)))
+            ])
+        cap_strings = ['_cap', '_area', 'units']
+        filenames = {
+            'timeseries': _get_filenames(location_config, ignore=cap_strings),
+            'expansion': _get_filenames(location_config, include=cap_strings),
+            'cluster': _get_filenames(model_config)
+        }
         datetime_min = []
         datetime_max = []
 
-        for file in constraint_filenames | cluster_filenames:
+        for file in filenames['timeseries'] | filenames['cluster'] | filenames['expansion']:
             file_path = os.path.join(config_model.model.timeseries_data_path, file)
             # load the data, without parsing the dates, to catch errors in the data
             df = pd.read_csv(file_path, index_col=0)
@@ -447,19 +453,26 @@ def process_timeseries_data(config_model, model_run):
                 )
 
     # Ensure all timeseries have the same index
-    indices = [
-        (file, df.index) for file, df in timeseries_data.items()
-        if file not in cluster_filenames
-    ]
-    first_file, first_index = indices[0]
-    for file, idx in indices[1:]:
-        if not first_index.equals(idx):
-            raise exceptions.ModelError(
-                'Time series indices do not match '
-                'between {} and {}'.format(first_file, file)
-            )
-
-    return timeseries_data, first_index
+    steps = []
+    for step in ['timeseries', 'expansion']:
+        indices = [
+            (file, timeseries_data[file].index) for file in filenames[step]
+        ]
+        # If not expansion planning, then expansionsteps just uses the first
+        # timestep of timesteps
+        if len(indices) == 0 and step == 'expansion':
+            first_index = pd.DatetimeIndex([steps[0][0]])
+        else:
+            first_file, first_index = indices[0]
+            for file, idx in indices[1:]:
+                if not first_index.equals(idx):
+                    raise exceptions.ModelError(
+                        'Time series indices do not match '
+                        'between {} and {}'.format(first_file, file)
+                    )
+        steps.append(first_index)
+    timesteps, expansionsteps = steps
+    return timeseries_data, expansionsteps, timesteps
 
 
 def generate_model_run(config, debug_comments):
@@ -497,7 +510,7 @@ def generate_model_run(config, debug_comments):
 
     # 5) Fully populate timeseries data
     # Raises ModelErrors if there are problems with timeseries data at this stage
-    model_run['timeseries_data'], model_run['timesteps'] = (
+    model_run['timeseries_data'], model_run['expansionsteps'], model_run['timesteps'] = (
         process_timeseries_data(config, model_run)
     )
 

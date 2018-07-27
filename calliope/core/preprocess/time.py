@@ -120,6 +120,7 @@ def add_time_dimension(data, model_run):
 
     """
     data['timesteps'] = pd.to_datetime(data.timesteps)
+    data['expansionsteps'] = pd.to_datetime(data.expansionsteps)
 
     # Search through every constraint/cost for use of '='
     for variable in data.data_vars:
@@ -146,15 +147,19 @@ def add_time_dimension(data, model_run):
         timeseries_data = [model_run.timeseries_data[file].loc[:, column].values
                            for (file, column) in filenames.values]
 
-        timeseries_data_series = pd.DataFrame(index=filenames.index,
-                                              columns=data.timesteps.values,
-                                              data=timeseries_data).stack()
-        timeseries_data_series.index.rename('timesteps', -1, inplace=True)
+        if any(i in variable for i in ['_cap', '_area', 'units']):
+            steps = data.expansionsteps
+        else:
+            steps = data.timesteps
+        timeseries_data_series = pd.DataFrame(
+            index=filenames.index, columns=steps.values, data=timeseries_data
+        ).stack()
+        timeseries_data_series.index.rename(steps.name, -1, inplace=True)
 
         # 7) Add time dimension to the relevent DataArray and update the '='
         # dimensions with the time varying data (static data is just duplicated
         # at each timestep)
-        timeseries_data_array = xr.broadcast(data[variable], data.timesteps)[0].copy()
+        timeseries_data_array = xr.broadcast(data[variable], steps)[0].copy()
         timeseries_data_array.loc[
             xr.DataArray.from_series(timeseries_data_series).coords
         ] = xr.DataArray.from_series(timeseries_data_series).values
