@@ -1,0 +1,56 @@
+calliope_version:
+  type: str
+  # validator: calliope_version_validator
+name:
+  type: str
+random_seed:
+  type: int
+  default: 42
+reserve_margin:
+  type: Dict # TODO: move this out
+  doc: >-
+    Per-carrier system-wide reserve margins, defined as key:value
+    pairs of carrier:reserve margin
+group_share:
+  type: Dict
+file_allowed:
+  # see https://github.com/calliope-project/calliope/blob/rules/calliope/config/defaults.yaml:45
+  type: List
+  opts: [str]
+  optional: true
+  doc: >-
+    add a flag for each resource, that are allowed to have constraints
+    specified by files (e.g. time series)
+subset_time:
+  type: List
+  validator: trange_check
+  doc: >-
+    Only run the optimisation over a subset of the input timeseries,
+    given as (first timestep, last timestep). Timesteps are inclusive
+    and can be any valid datetime stamp (e.g. '2020', '2020-01',
+    '2020-01-01', and '2020-01-01 00:00' are all valid datetime
+    stamps)
+time:
+  type: Dict
+timeseries_data_path:
+  type: DirectoryPath
+  doc: >-
+    Directory in which timeseries data is stored, relative to model
+    configuration file. Whenever you point to a timeseries file in
+    the remainder of the model configuration, it will be relative to
+    this path
+# timeseries_data:
+#   # TODO: get rid of this, as it is exposing implementation to the user
+#   type: Dict
+#   validator: timeseries_data_validation
+#   doc: |
+#     Dictionary of string:pandas.DataFrame pairs defining the
+#     tineseries data used in the model. This is usually populated by
+#     Calliope, using all instances of `file=` in the model
+#     configuration.
+timeseries_dateformat:
+  type: str
+  # validator: timeseries_dateformat_validation
+  doc: >-
+    datetime format describing the format in which timesteps are
+    stored in timeseries files

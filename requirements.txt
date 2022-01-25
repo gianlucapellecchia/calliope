@@ -9,3 +9,9 @@ pyomo >= 6.0, < 6.1
 ruamel.yaml >= 0.16
 scikit-learn >= 0.22, < 0.24
 xarray >= 0.17, < 0.18
+boltons
+glom>=19.10
+networkx
+pydantic
+pyyaml
+typing_extensions

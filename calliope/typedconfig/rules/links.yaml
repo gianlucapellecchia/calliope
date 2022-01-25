@@ -1,0 +1,6 @@
+exists:
+  type: bool
+  default: True
+distance:
+  type: NonNegativeFloat
+  optional: True
