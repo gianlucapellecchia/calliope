@@ -69,17 +69,12 @@ Usage notes
 When using the hierarchical parser, it is not possible to refer to
 arbitrary attributes in the config type during the validation step.
 
-```
-key1:
-  ...
-key1_options:
-  opt_a:
-    ...
-  opt_b:
-    ...
-  opt_c:
-    ...
-``
+.. code-block:: yaml
+   key1: bla 
+   key1_options:
+     opt_a: foo
+     opt_b: bar
+     opt_c: baz
 
 In the above example, it is not possible to refer to any sub-keys
 under ``key1`` from ``key1_options``.  It is however possible to refer
