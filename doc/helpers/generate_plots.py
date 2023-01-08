@@ -60,10 +60,6 @@ def generate_all_plots():
         out_path=os.path.join(os.path.dirname(__file__), "..", "_static"),
     )
 
-    model_clustered = calliope.examples.time_clustering()
-    model_clustered.run()
-    model_plots(model_clustered, plots=["timeseries"], filename_prefix="clustered_")
-
 
 if __name__ == "__main__":
     generate_all_plots()

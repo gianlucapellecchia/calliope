@@ -29,16 +29,6 @@ def national_scale(*args, **kwargs):
     return Model(os.path.join(_PATHS["national_scale"], "model.yaml"), *args, **kwargs)
 
 
-def time_clustering(*args, **kwargs):
-    """Returns the built-in national-scale example model with time clustering."""
-    return Model(
-        os.path.join(_PATHS["national_scale"], "model.yaml"),
-        scenario="time_clustering",
-        *args,
-        **kwargs,
-    )
-
-
 def time_resampling(*args, **kwargs):
     """Returns the built-in national-scale example model with time resampling."""
     return Model(

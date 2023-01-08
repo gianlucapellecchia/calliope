@@ -21,13 +21,6 @@ overrides:
         # Resample time resolution to 6-hourly
         model.time: {function: resample, function_options: {'resolution': '6H'}}
 
-    time_clustering:
-        model.random_seed: 23
-        model.name: 'National-scale example model with time clustering'
-        model.subset_time: null  # No time subsetting
-        # Cluster timesteps using k-means
-        model.time: {function: apply_clustering, function_options: {clustering_func: 'kmeans', how: 'closest', k: 10}}
-
     spores:
         run.mode: spores
         run.spores_options:

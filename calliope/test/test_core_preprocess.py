@@ -1369,29 +1369,6 @@ class TestChecks:
 
         assert check_error_or_warning(excinfo, "Updated from coordinate system")
 
-    def test_clustering_and_cyclic_storage(self):
-        """
-        Don't allow time clustering with cyclic storage if not also using
-        storage_inter_cluster
-        """
-
-        override = {
-            "model.subset_time": ["2005-01-01", "2005-01-04"],
-            "model.time": {
-                "function": "apply_clustering",
-                "function_options": {
-                    "clustering_func": "file=cluster_days.csv:0",
-                    "how": "mean",
-                    "storage_inter_cluster": False,
-                },
-            },
-            "run.cyclic_storage": True,
-        }
-
-        with pytest.raises(exceptions.ModelError) as error:
-            build_model(override, scenario="simple_supply")
-
-        assert check_error_or_warning(error, "cannot have cyclic storage")
 
     def test_incorrect_resource_unit(self):
         """
@@ -1574,20 +1551,6 @@ class TestChecks:
         )
 
     @pytest.mark.skip(reason="check is now taken care of in typedconfig")
-    def test_storage_inter_cluster_vs_storage_discharge_depth(self):
-        """
-        Check that the storage_inter_cluster is not used together with storage_discharge_depth
-        """
-        with pytest.raises(exceptions.ModelError) as error:
-            override = {"model.subset_time": ["2005-01-01", "2005-01-04"]}
-            build_model(override, "clustering,simple_storage,storage_discharge_depth")
-
-        assert check_error_or_warning(
-            error,
-            "storage_discharge_depth is currently not allowed when time clustering is active.",
-        )
-
-    @pytest.mark.skip(reason="check is now taken care of in typedconfig")
     def test_warn_on_undefined_cost_classes(self):
 
         with pytest.warns(exceptions.ModelWarning) as warn:
@@ -1652,7 +1615,7 @@ class TestTime:
         )
 
     def test_add_max_demand_timesteps(self, model_urban):
-        data = model_urban._model_data_pre_clustering.copy()
+        data = model_urban._model_data_pre_resampling.copy()
         data = time.add_max_demand_timesteps(data)
 
         assert data["max_demand_timesteps"].loc[

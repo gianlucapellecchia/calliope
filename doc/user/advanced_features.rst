@@ -9,7 +9,8 @@ Once you're comfortable with :doc:`building <building>`, :doc:`running <running>
 Time resolution adjustment
 --------------------------
 
-Models have a default timestep length (defined implicitly by the timesteps of the model's time series data). This default resolution can be adjusted over parts of the dataset by specifying time resolution adjustment in the model configuration, for example:
+Models have a default timestep length (defined implicitly by the timesteps of the model's time series data).
+This default resolution can be adjusted over parts of the dataset by specifying time resolution adjustment in the model configuration, for example:
 
 .. code-block:: yaml
 
@@ -20,41 +21,14 @@ Models have a default timestep length (defined implicitly by the timesteps of th
 
 In the above example, this would resample all time series data to 6-hourly timesteps.
 
-Calliope's time resolution adjustment functionality allows running a function that can perform arbitrary adjustments to the time series data in the model.
+Calliope's time resolution adjustment functionality allows running a function that can perform arbitrary resolution adjustments to the time series data in the model. Uniform time resolution reduction through the ``resample`` function takes a `pandas-compatible rule describing the target resolution <http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.resample.html>`_ (see above example).
 
-The available options include:
+.. Note::
 
-1. Uniform time resolution reduction through the ``resample`` function, which takes a `pandas-compatible rule describing the target resolution <http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.resample.html>`_ (see above example).
-
-2. Deriving representative days from the input time series, by applying the clustering method implemented in :mod:`calliope.time.clustering`, for example:
-
-.. code-block:: yaml
-
-    model:
-        time:
-            function: apply_clustering
-            function_options:
-                clustering_func: kmeans
-                how: mean
-                k: 20
-
-When using representative days, a number of additional constraints are added, based on the study undertaken by `Kotzur et al <https://doi.org/10.1016/j.apenergy.2018.01.023>`_. These constraints require a new decision variable ``storage_inter_cluster``, which tracks storage between all the dates of the original timeseries. This particular functionality can be disabled by including :yaml:`storage_inter_cluster: false` in the `function_options` given above.
-
-.. note::
-
-    It is also possible to load user-defined representative days, by pointing to a file in `clustering_func` in the same format as pointing to timeseries files in constraints, e.g. :yaml:`clustering_func: file=clusters.csv:column_name`. Clusters are unique per datestep, so the clustering file is most readable if the index is at datestep resolution. But, the clustering file index can be in timesteps (e.g. if sharing the same file as a constraint timeseries), with the cluster number repeated per timestep in a day. Cluster values should be integer, starting at zero.
-
-3. Heuristic selection of time steps, that is, the application of one or more of the masks defined in :mod:`calliope.time.masks`, which will mark areas of the time series to retain at maximum resolution (unmasked) and areas where resolution can be lowered (masked). Options can be passed to the masking functions by specifying ``options``. A ``time.function`` can still be specified and will be applied to the masked areas (i.e. those areas of the time series not selected to remain at the maximum resolution), as in this example, which looks for the week of minimum and maximum potential wind generation (assuming a ``wind`` technology was specified), then reduces the rest of the input time series to 6-hourly resolution:
-
-.. code-block:: yaml
-
-    model:
-        time:
-            masks:
-                - {function: extreme, options: {padding: 'calendar_week', tech: 'wind', how: 'max'}}
-                - {function: extreme, options: {padding: 'calendar_week', tech: 'wind', how: 'min'}}
-            function: resample
-            function_options: {'resolution': '6H'}
+  In previous versions of Calliope, it was possible to derive representative days programatially, and cluster the timeseries accordingly, and select representative timesteps heuristacally (masking).
+  This functionality has since been deprecated in the core Calliope implementation.
+  It is now the responsibility of the user to mask or cluster timeseries according to their needs.
+  User-defined clustering (with or without inter-cluster storage) will not perform as expected unless the dimension `datesteps` and the following input datasets are given in the Calliope model xarray Dataset: `clusters[timesteps]`, `lookup_cluster_first_timestep[timesteps]`, `lookup_cluster_last_timestep[timesteps]`, `lookup_datestep_last_cluster_timestep[datesteps]`.
 
 .. Warning::
 

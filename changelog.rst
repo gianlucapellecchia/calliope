@@ -6,7 +6,7 @@ Release History
 0.7.0 (dev)
 -----------
 
-v0.7 includes a major change to how Calliope internally operates. Most of this affects the user only marginally. We group changes into those that are primarily user-facing and relevant for all Calliope users, and those that are primarily internal, and relevant only for Calliope developers.
+v0.7 includes a major change to how Calliope internally operates. We group changes into those that are primarily user-facing and relevant for all Calliope users, and those that are primarily internal, and relevant only for Calliope developers.
 
 User-facing changes
 ~~~~~~~~~~~~~~~~~~~
@@ -18,6 +18,8 @@ User-facing changes
 |changed| |backwards incompatible| The dimensions of the model data no longer include all possible subsets. E.g. a user can no longer access `loc_techs_supply` to view the location/technology pairs which have defined `supply` as their top-level parent. Instead, the same subset can be supplied by calling `model.inputs.inheritance.str.endswith('supply')` to create a boolean array of technologies with `supply` as their top-level parent.
 
 |changed| |backwards incompatible| Group constraints have been removed. They will be replaced by `custom constraint` functionality.
+
+|changed| |backwards incompatible| It is no longer possible to cluster or mask timeseries to reduce the size of the time dimension (resampling is still possible). This functionality will be replaced at a later stage in the form of an external module.
 
 Internal changes
 ~~~~~~~~~~~~~~~~

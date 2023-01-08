@@ -153,9 +153,9 @@ class TestGenerateRuns:
     @python36_or_higher
     def test_generate_runs_scenarios(self):
         runs = generate_runs(
-            _MODEL_NATIONAL, scenarios="time_resampling;profiling;time_clustering"
+            _MODEL_NATIONAL, scenarios="time_resampling;profiling"
         )
-        assert len(runs) == 3
+        assert len(runs) == 2
         assert runs[0].endswith(
             "--scenario time_resampling --save_netcdf out_1_time_resampling.nc"
         )

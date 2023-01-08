@@ -93,13 +93,13 @@ class Model(object):
 
         model_data_factory = ModelDataFactory(model_run)
         (
-            model_data_pre_clustering,
+            model_data_pre_resampling,
             model_data,
             data_pre_time,
             stripped_keys,
         ) = model_data_factory()
 
-        self._model_data_pre_clustering = model_data_pre_clustering
+        self._model_data_pre_resampling = model_data_pre_resampling
         self._model_data = model_data
         if debug:
             self._debug_data = debug_data

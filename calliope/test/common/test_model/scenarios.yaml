@@ -241,14 +241,6 @@ overrides:
 
         links.a,b.exists: false
 
-    clustering:
-        model.time:
-            function: apply_clustering
-            function_options:
-                clustering_func: file=cluster_days.csv:a
-                how: 'mean'
-                storage_inter_cluster: True
-
     spores:
         run.mode: spores
         run.spores_options:

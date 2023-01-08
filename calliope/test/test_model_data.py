@@ -374,11 +374,11 @@ class TestModelData:
     def test_add_time_dimension(self, model_data):
         model_data._extract_node_tech_data()
         assert not hasattr(model_data, "data_pre_time")
-        assert not hasattr(model_data, "model_data_pre_clustering")
+        assert not hasattr(model_data, "model_data_pre_resampling")
 
         model_data._add_time_dimension()
         assert hasattr(model_data, "data_pre_time")
-        assert hasattr(model_data, "model_data_pre_clustering")
+        assert hasattr(model_data, "model_data_pre_resampling")
 
         assert "timesteps" in model_data.model_data.resource.dims
         assert "max_demand_timesteps" in model_data.model_data.data_vars.keys()

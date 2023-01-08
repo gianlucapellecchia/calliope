@@ -83,7 +83,7 @@ class ModelDataFactory:
         self._clean_model_data()
 
         return (
-            self.model_data_pre_clustering,
+            self.model_data_pre_resampling,
             self.model_data,
             self.data_pre_time,
             self.stripped_keys,
@@ -100,7 +100,7 @@ class ModelDataFactory:
 
         if self.model_run.get_key("model.random_seed", None):
             np.random.seed(seed=self.model_run.model.random_seed)
-        self.model_data_pre_clustering = self.model_data.copy(deep=True)
+        self.model_data_pre_resampling = self.model_data.copy(deep=True)
         if self.model_run.get_key("model.time", None):
             self.model_data = time.apply_time_clustering(
                 self.model_data, self.model_run

@@ -1,3 +1,3 @@
 # flake8: noqa
 
-from calliope.time import clustering, funcs, masks
+from calliope.time import funcs

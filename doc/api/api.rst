@@ -16,12 +16,6 @@ Model class
 Time series
 ===========
 
-.. automodule:: calliope.time.clustering
-    :members: get_clusters
-
-.. automodule:: calliope.time.masks
-    :members: extreme, extreme_diff
-
 .. automodule:: calliope.time.funcs
     :members: resample
 

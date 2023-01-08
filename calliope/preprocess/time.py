@@ -60,28 +60,7 @@ def apply_time_clustering(model_data, model_run):
 
     data = model_data.copy(deep=True)
 
-    ##
-    # Process masking and get list of timesteps to keep at high res
-    ##
-    if "masks" in time_config:
-        masks = {}
-        # time.masks is a list of {'function': .., 'options': ..} dicts
-        for entry in time_config.masks:
-            entry = AttrDict(entry)
-            mask_func = plugin_load(
-                entry.function, builtin_module="calliope.time.masks"
-            )
-            mask_kwargs = entry.get_key("options", default=AttrDict()).as_dict()
-            masks[entry.to_yaml()] = mask_func(data, **mask_kwargs)
-        data.attrs["masks"] = masks
-        # Concatenate the DatetimeIndexes by using dummy Series
-        chosen_timesteps = pd.concat(
-            [pd.Series(0, index=m) for m in masks.values()]
-        ).index
-        # timesteps: a list of timesteps NOT picked by masks
-        timesteps = pd.Index(data.timesteps.values).difference(chosen_timesteps)
-    else:
-        timesteps = None
+    timesteps = None
 
     ##
     # Process function, apply resolution adjustments

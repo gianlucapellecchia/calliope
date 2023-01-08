@@ -67,14 +67,6 @@ def generate_constraint_sets(model_run):
         for i in sets.carriers
         if i in model_run.model.get_key("reserve_margin", {}).keys()
     ]
-    # clustering-specific balance constraints
-    if model_run.model.get_key(
-        "time.function", None
-    ) == "apply_clustering" and model_run.model.get_key(
-        "time.function_options.storage_inter_cluster", True
-    ):
-        set_name = "loc_techs_balance_storage_inter_cluster_constraint"
-        constraint_sets[set_name] = sets.loc_techs_store
 
     # costs.py
     constraint_sets["loc_techs_cost_constraint"] = sets.loc_techs_cost
@@ -219,18 +211,8 @@ def generate_constraint_sets(model_run):
         for i in sets.loc_tech_carriers_prod
         if i.rsplit("::", 1)[0] in sets.loc_techs_ramping
     ]
-    # clustering-specific dispatch constraints
-    if model_run.model.get_key(
-        "time.function", None
-    ) == "apply_clustering" and model_run.model.get_key(
-        "time.function_options.storage_inter_cluster", True
-    ):
-        constraint_sets["loc_techs_storage_intra_max_constraint"] = sets.loc_techs_store
-        constraint_sets["loc_techs_storage_intra_min_constraint"] = sets.loc_techs_store
-        constraint_sets["loc_techs_storage_inter_max_constraint"] = sets.loc_techs_store
-        constraint_sets["loc_techs_storage_inter_min_constraint"] = sets.loc_techs_store
-    else:
-        constraint_sets["loc_techs_storage_max_constraint"] = sets.loc_techs_store
+
+    constraint_sets["loc_techs_storage_max_constraint"] = sets.loc_techs_store
 
     # milp.py
     constraint_sets["loc_techs_unit_commitment_milp_constraint"] = sets.loc_techs_milp
