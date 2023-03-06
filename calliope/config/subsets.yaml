@@ -241,6 +241,8 @@ variables:
     carrier_con:
         foreach: [nodes, techs, carriers, timesteps]
         where: "carrier AND allowed_carrier_con=True"
+        subset:
+            carrier_tiers: [in, in_2, in_3]
         domain: NonPositiveReals
 
     resource_area:

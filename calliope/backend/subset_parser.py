@@ -69,7 +69,7 @@ class ConfigOptionParser(equation_parser.EvalString):
     ) -> Union[int, float, str, bool, np.bool_]:
         """
         If the parsed configuration group and configuration option are valid then
-        return the option value, otherwise add to provided errors list inplace.
+        return the option value, otherwise raise error.
 
         Args:
             model_data (xr.Dataset): Calliope model data.
