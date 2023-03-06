@@ -164,7 +164,7 @@ class ParsedConstraint:
 
         return None
 
-    def build_constraint(self, model_data):
+    def build_constraint(self, model_data: xr.Dataset) -> None:
         if not self._is_valid or not self._is_active:
             return None
         constr_index: pd.Series = pd.Series()
@@ -540,7 +540,7 @@ class ParsedConstraint:
         else:
             mask_stacked = imask.stack(dim_0=imask.dims)
             return (
-                mask_stacked[mask_stacked]
+                mask_stacked[mask_stacked]  # type:ignore
                 .coords.to_index()
                 .reorder_levels(self.sets.values())
             )
