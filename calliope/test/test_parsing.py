@@ -1,5 +1,6 @@
 from io import StringIO
 from itertools import chain, combinations
+from __future__ import annotations
 
 import pytest
 import ruamel.yaml as yaml
@@ -420,7 +421,6 @@ class TestParsedConstraintParseWhereExpression:
         where_string,
         expected_where_eval,
     ):
-
         expression_dict = expression_generator(parse_string, where_string)
         parsed_list = constraint_obj._parse_where_expression(
             expression_parser, [expression_dict], "foo"

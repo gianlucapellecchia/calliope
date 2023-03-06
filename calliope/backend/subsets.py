@@ -61,12 +61,15 @@ def create_valid_subset(model_data, name, config):
     # Add "where" info as imasks
     where_string = config.get_key("where", default=[])
     parsing_errors = []
-    parser = generate_where_string_parser()
     if where_string:
-        where_string_evaluated = parser.parse_string(where_string, parse_all=True).eval(
+        parsed_string = generate_where_string_parser().parse_string(
+            where_string, parse_all=True
+        )
+        where_string_evaluated = parsed_string[0].eval(
             model_data=model_data,
             helper_func_dict=VALID_HELPER_FUNCTIONS,
             errors=parsing_errors,
+            defaults=model_data.attrs["defaults"],
         )
         print_warnings_and_raise_errors(errors=parsing_errors)
         imask = imask & where_string_evaluated
