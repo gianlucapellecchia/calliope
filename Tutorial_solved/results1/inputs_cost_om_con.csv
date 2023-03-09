@@ -1,0 +1,5 @@
+costs,nodes,techs,cost_om_con
+monetary,CSTR,HFO_pp,0.032328
+monetary,NBOR,GT_pp,0.061128
+monetary,NBOR,HFO_pp,0.032328
+monetary,WSTR,bio_pp,0.0

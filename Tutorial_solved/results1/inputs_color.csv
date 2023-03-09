@@ -1,0 +1,17 @@
+techs,color
+GT_pp,#7C7C7C
+HFO_pp,#494949
+L_hydro_pp,#2980B9
+S_hydro_pp,#3498DB
+bio_pp,#BA4A00
+demand_power,#000000
+geo_pp,#A04000
+hvdc_132:CSTR,#00BFFF
+hvdc_132:MTKR,#00BFFF
+hvdc_132:NBOR,#00BFFF
+hvdc_132:WSTR,#00BFFF
+hvdc_220:CSTR,#4169E1
+hvdc_220:MTKR,#4169E1
+hvdc_220:NBOR,#4169E1
+hvdc_220:WSTR,#4169E1
+on_wind_pp,#28B463

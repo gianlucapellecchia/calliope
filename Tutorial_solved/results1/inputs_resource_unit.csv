@@ -1,0 +1,16 @@
+nodes,techs,resource_unit
+CSTR,HFO_pp,energy
+CSTR,demand_power,energy
+MTKR,L_hydro_pp,energy
+MTKR,S_hydro_pp,energy
+MTKR,demand_power,energy
+NBOR,GT_pp,energy
+NBOR,HFO_pp,energy
+NBOR,L_hydro_pp,energy
+NBOR,demand_power,energy
+NBOR,on_wind_pp,energy
+WSTR,L_hydro_pp,energy
+WSTR,S_hydro_pp,energy
+WSTR,bio_pp,energy
+WSTR,demand_power,energy
+WSTR,geo_pp,energy

@@ -1,0 +1,17 @@
+techs,name
+GT_pp,Gas Turbine Power Plant
+HFO_pp,HFO Power Plant
+L_hydro_pp,Large Hydro Power Plant
+S_hydro_pp,Small Hydro Power Plant
+bio_pp,Biomass Power Plant
+demand_power,Power demand
+geo_pp,Geothermal Power Plant
+hvdc_132:CSTR,High Voltage Grid_132
+hvdc_132:MTKR,High Voltage Grid_132
+hvdc_132:NBOR,High Voltage Grid_132
+hvdc_132:WSTR,High Voltage Grid_132
+hvdc_220:CSTR,High Voltage Grid_220
+hvdc_220:MTKR,High Voltage Grid_220
+hvdc_220:NBOR,High Voltage Grid_220
+hvdc_220:WSTR,High Voltage Grid_220
+on_wind_pp,Onshore Wind Power Plant

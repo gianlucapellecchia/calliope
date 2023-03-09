@@ -1,0 +1,12 @@
+nodes,techs,lifetime
+CSTR,HFO_pp,30.0
+MTKR,L_hydro_pp,50.0
+MTKR,S_hydro_pp,30.0
+NBOR,GT_pp,30.0
+NBOR,HFO_pp,30.0
+NBOR,L_hydro_pp,50.0
+NBOR,on_wind_pp,20.0
+WSTR,L_hydro_pp,50.0
+WSTR,S_hydro_pp,30.0
+WSTR,bio_pp,30.0
+WSTR,geo_pp,40.0

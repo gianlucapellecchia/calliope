@@ -1,0 +1,17 @@
+nodes,techs,link_remote_techs
+CSTR,hvdc_132:MTKR,hvdc_132:CSTR
+CSTR,hvdc_132:NBOR,hvdc_132:CSTR
+CSTR,hvdc_220:MTKR,hvdc_220:CSTR
+MTKR,hvdc_132:CSTR,hvdc_132:MTKR
+MTKR,hvdc_132:NBOR,hvdc_132:MTKR
+MTKR,hvdc_132:WSTR,hvdc_132:MTKR
+MTKR,hvdc_220:CSTR,hvdc_220:MTKR
+MTKR,hvdc_220:NBOR,hvdc_220:MTKR
+NBOR,hvdc_132:CSTR,hvdc_132:NBOR
+NBOR,hvdc_132:MTKR,hvdc_132:NBOR
+NBOR,hvdc_132:WSTR,hvdc_132:NBOR
+NBOR,hvdc_220:MTKR,hvdc_220:NBOR
+NBOR,hvdc_220:WSTR,hvdc_220:NBOR
+WSTR,hvdc_132:MTKR,hvdc_132:WSTR
+WSTR,hvdc_132:NBOR,hvdc_132:WSTR
+WSTR,hvdc_220:NBOR,hvdc_220:WSTR

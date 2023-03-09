@@ -1,0 +1,12 @@
+costs,nodes,techs,cost_investment
+monetary,CSTR,HFO_pp,689331.8456535271
+monetary,MTKR,L_hydro_pp,631495.4524467037
+monetary,MTKR,S_hydro_pp,35730.06654329359
+monetary,NBOR,GT_pp,64238.60993435157
+monetary,NBOR,HFO_pp,717304.7321438151
+monetary,NBOR,L_hydro_pp,443753.5611787647
+monetary,NBOR,on_wind_pp,64611.583209918055
+monetary,WSTR,L_hydro_pp,1606046.542573914
+monetary,WSTR,S_hydro_pp,8711.71285381428
+monetary,WSTR,bio_pp,140708.23116278797
+monetary,WSTR,geo_pp,2679988.9805544787

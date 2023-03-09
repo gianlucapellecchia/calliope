@@ -1,0 +1,12 @@
+costs,nodes,techs,cost_energy_cap
+monetary,CSTR,HFO_pp,1990.0
+monetary,MTKR,L_hydro_pp,3850.0
+monetary,MTKR,S_hydro_pp,4350.0
+monetary,NBOR,GT_pp,1030.0
+monetary,NBOR,HFO_pp,1990.0
+monetary,NBOR,L_hydro_pp,3850.0
+monetary,NBOR,on_wind_pp,2030.0
+monetary,WSTR,L_hydro_pp,3850.0
+monetary,WSTR,S_hydro_pp,4350.0
+monetary,WSTR,bio_pp,3050.0
+monetary,WSTR,geo_pp,3780.0

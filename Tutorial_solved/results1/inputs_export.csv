@@ -1,0 +1,12 @@
+nodes,techs,export
+CSTR,HFO_pp,0.0
+MTKR,L_hydro_pp,0.0
+MTKR,S_hydro_pp,0.0
+NBOR,GT_pp,0.0
+NBOR,HFO_pp,0.0
+NBOR,L_hydro_pp,0.0
+NBOR,on_wind_pp,0.0
+WSTR,L_hydro_pp,0.0
+WSTR,S_hydro_pp,0.0
+WSTR,bio_pp,0.0
+WSTR,geo_pp,0.0

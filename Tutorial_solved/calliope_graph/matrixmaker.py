@@ -52,12 +52,11 @@ def prod_matrix (model,pr_techs,nodes,carr):
 
 
     import pandas as pd
-    
-    prod = model.get_formatted_array('carrier_prod').loc[{'techs':pr_techs,'carriers':carr,'locs':[nodes[0]]}].sum('locs').sum('carriers').to_pandas().T
+    prod = model.get_formatted_array('carrier_prod').loc[{'techs':pr_techs,'carriers':carr,'nodes':[nodes[0]]}].sum('nodes').sum('carriers').to_pandas().T
     prod = pd.concat([prod],keys=[nodes[0]],axis=1)
     
     for i in  range (1,len(nodes)):
-        prod0 = model.get_formatted_array('carrier_prod').loc[{'techs':pr_techs,'carriers':carr,'locs':[nodes[i]]}].sum('locs').sum('carriers').to_pandas().T
+        prod0 = model.get_formatted_array('carrier_prod').loc[{'techs':pr_techs,'carriers':carr,'nodes':[nodes[i]]}].sum('nodes').sum('carriers').to_pandas().T
         prod0 = pd.concat([prod0],keys=[nodes[i]],axis=1)
         prod = pd.concat([prod,prod0],axis=1)
         
@@ -98,8 +97,8 @@ def imp_exp (model,nodes,prod,tr_tech,carr):
     
     for i in range(len(exp)):
         
-        exports[exp[i]] = model.get_formatted_array('carrier_con').loc[{'techs':tran_get[i],'carriers':carr,'locs':[node]}].sum('locs').sum('techs').to_pandas().T
-        imports[imp[i]] = model.get_formatted_array('carrier_prod').loc[{'techs':tran_get[i],'carriers':carr,'locs':[node]}].sum('locs').sum('techs').to_pandas().T
+        exports[exp[i]] = model.get_formatted_array('carrier_con').loc[{'techs':tran_get[i],'carriers':carr,'nodes':[node]}].sum('nodes').sum('techs').to_pandas().T
+        imports[imp[i]] = model.get_formatted_array('carrier_prod').loc[{'techs':tran_get[i],'carriers':carr,'nodes':[node]}].sum('nodes').sum('techs').to_pandas().T
         
     imports = pd.concat([imports],keys=[node],axis=1)
     exports = pd.concat([exports],keys=[node],axis=1)        
@@ -134,8 +133,8 @@ def imp_exp (model,nodes,prod,tr_tech,carr):
             tran_get.append(tr)
     
         for n in range(len(exp)):
-            exports0[exp[n]] = model.get_formatted_array('carrier_con').loc[{'techs':tran_get[n],'carriers':carr,'locs':[node]}].sum('locs').sum('techs').to_pandas().T
-            imports0[imp[n]] = model.get_formatted_array('carrier_prod').loc[{'techs':tran_get[n],'carriers':carr,'locs':[node]}].sum('locs').sum('techs').to_pandas().T
+            exports0[exp[n]] = model.get_formatted_array('carrier_con').loc[{'techs':tran_get[n],'carriers':carr,'nodes':[node]}].sum('nodes').sum('techs').to_pandas().T
+            imports0[imp[n]] = model.get_formatted_array('carrier_prod').loc[{'techs':tran_get[n],'carriers':carr,'nodes':[node]}].sum('nodes').sum('techs').to_pandas().T
     
         imports0 = pd.concat([imports0],keys=[node],axis=1)
         exports0 = pd.concat([exports0],keys=[node],axis=1)
@@ -148,7 +147,7 @@ def imp_exp (model,nodes,prod,tr_tech,carr):
 
 def dem_matrix (model,co_techs,carr,nodes):
     
-    return -model.get_formatted_array('carrier_con').loc[{'techs':co_techs,'carriers':carr,'locs':nodes}].sum('techs').sum('carriers').to_pandas().T
+    return -model.get_formatted_array('carrier_con').loc[{'techs':co_techs,'carriers':carr,'nodes':nodes}].sum('techs').sum('carriers').to_pandas().T
 
 def prod_imp_exp (production,imports,exports,node):
     
@@ -207,12 +206,12 @@ def pie_cons(production,imports,exports,kind):
 
 def install_cap (model,nodes,techs):
     
-    return model.get_formatted_array('energy_cap_equals').loc[{'techs':techs,'locs':nodes}].to_pandas().T.fillna(0)
+    return model.get_formatted_array('energy_cap_equals').loc[{'techs':techs,'nodes':nodes}].to_pandas().T.fillna(0)
         
 def cap_fac (model,techs,nodes,carrier,production):
 
     
-    cap_f = model.get_formatted_array('capacity_factor').loc[{'techs':techs,'locs':nodes,'carriers':carrier[0]}].sum('timesteps').to_pandas().T
+    cap_f = model.get_formatted_array('capacity_factor').loc[{'techs':techs,'nodes':nodes,'carriers':carrier[0]}].sum('timesteps').to_pandas().T
     
     return cap_f / len(production.index)
         
