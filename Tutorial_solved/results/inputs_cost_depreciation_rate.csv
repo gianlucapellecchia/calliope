@@ -1,0 +1,12 @@
+costs,nodes,techs,cost_depreciation_rate
+monetary,CSTR,HFO_pp,0.1060792482526339
+monetary,MTKR,L_hydro_pp,0.10085917404611996
+monetary,MTKR,S_hydro_pp,0.1060792482526339
+monetary,NBOR,GT_pp,0.1060792482526339
+monetary,NBOR,HFO_pp,0.1060792482526339
+monetary,NBOR,L_hydro_pp,0.10085917404611996
+monetary,NBOR,on_wind_pp,0.11745962477254576
+monetary,WSTR,L_hydro_pp,0.10085917404611996
+monetary,WSTR,S_hydro_pp,0.1060792482526339
+monetary,WSTR,bio_pp,0.1060792482526339
+monetary,WSTR,geo_pp,0.1022594144143695

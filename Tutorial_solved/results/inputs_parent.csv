@@ -1,0 +1,17 @@
+techs,parent
+GT_pp,supply
+HFO_pp,supply
+L_hydro_pp,supply
+S_hydro_pp,supply
+bio_pp,supply
+demand_power,demand
+geo_pp,supply
+hvdc_132:CSTR,transmission
+hvdc_132:MTKR,transmission
+hvdc_132:NBOR,transmission
+hvdc_132:WSTR,transmission
+hvdc_220:CSTR,transmission
+hvdc_220:MTKR,transmission
+hvdc_220:NBOR,transmission
+hvdc_220:WSTR,transmission
+on_wind_pp,supply_plus

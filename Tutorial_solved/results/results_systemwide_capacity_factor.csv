@@ -1,0 +1,17 @@
+carriers,techs,systemwide_capacity_factor
+power,GT_pp,0.0
+power,HFO_pp,0.01629765839153273
+power,L_hydro_pp,0.3120630080058117
+power,S_hydro_pp,0.7941369525607246
+power,bio_pp,0.20992271834212722
+power,demand_power,0.0
+power,geo_pp,0.9998821381137171
+power,hvdc_132:CSTR,0.0
+power,hvdc_132:MTKR,0.05511918030084862
+power,hvdc_132:NBOR,0.1792477676251372
+power,hvdc_132:WSTR,0.043775619855351944
+power,hvdc_220:CSTR,0.0
+power,hvdc_220:MTKR,0.09102994765236015
+power,hvdc_220:NBOR,0.0
+power,hvdc_220:WSTR,0.7661627191646043
+power,on_wind_pp,1.366611111111111e-05

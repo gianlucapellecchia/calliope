@@ -1,0 +1,13 @@
+carriers,costs,techs,systemwide_levelised_cost
+power,monetary,GT_pp,inf
+power,monetary,HFO_pp,1.8193125542607098
+power,monetary,L_hydro_pp,0.1524230645277951
+power,monetary,S_hydro_pp,0.07021273928959956
+power,monetary,bio_pp,0.26719794232400074
+power,monetary,geo_pp,0.059657783260866196
+power,monetary,hvdc_132:MTKR,0.00013156000000000002
+power,monetary,hvdc_132:NBOR,0.00013155999999999997
+power,monetary,hvdc_132:WSTR,0.00013156000000000002
+power,monetary,hvdc_220:MTKR,0.00012034800000000002
+power,monetary,hvdc_220:WSTR,0.00012034800000000001
+power,monetary,on_wind_pp,2626.593894463924
